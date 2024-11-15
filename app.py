@@ -92,7 +92,7 @@ if "model" in st.session_state:
     st.session_state.runnable = st.session_state.prompt | chat
     st.session_state.store = {}
     def get_session_history(session_id: str) -> BaseChatMessageHistory:
-        if session_id not in store:
+        if session_id not in st.session_state.store:
             st.session_state.store[session_id] = ChatMessageHistory()
         return st.session_state.store[session_id]
     st.session_state.with_message_history = RunnableWithMessageHistory(
