@@ -90,22 +90,18 @@ if "model" in st.session_state:
     )
     # チェインを設定
     st.session_state.runnable = st.session_state.prompt | chat
-
-st.session_state.store = {}
-
-def get_session_history(session_id: str) -> BaseChatMessageHistory:
-    if session_id not in store:
-        st.session_state.store[session_id] = ChatMessageHistory()
-    return st.session_state.store[session_id]
-
-st.session_state.with_message_history = RunnableWithMessageHistory(
-    st.session_state.runnable,
-    get_session_history,
-    input_messages_key="input",
-    history_messages_key="history",
-)
+    st.session_state.store = {}
+    def get_session_history(session_id: str) -> BaseChatMessageHistory:
+        if session_id not in store:
+            st.session_state.store[session_id] = ChatMessageHistory()
+        return st.session_state.store[session_id]
+    st.session_state.with_message_history = RunnableWithMessageHistory(
+        st.session_state.runnable,
+        get_session_history,
+        input_messages_key="input",
+        history_messages_key="history",
+    )
     # encoding = tiktoken.encoding_for_model(st.session_state.model)
-
 
 # Firebase 設定の読み込み
 key_dict = json.loads(st.secrets["firebase"]["textkey"])
