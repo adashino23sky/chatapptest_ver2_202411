@@ -124,7 +124,7 @@ def click_to_submit():
     with st.spinner("相手からの返信を待っています..."):
         st.session_state.send_time = str(datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
         st.session_state.response = st.session_state.with_message_history.invoke({"input": st.session_state.user_input},
-                                                            config={"configurable": {"session_id": st.session_state.user}},
+                                                            config={"configurable": {"session_id": st.session_state.user_id}},
                                                            )
         # st.session_state.response = conversation.predict(input=st.session_state.user_input)
         # count token
