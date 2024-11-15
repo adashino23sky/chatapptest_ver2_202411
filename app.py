@@ -125,7 +125,8 @@ def click_to_submit():
         st.session_state.send_time = str(datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
         st.session_state.response = st.session_state.with_message_history.invoke({"input": st.session_state.user_input},
                                                             config={"configurable": {"session_id": st.session_state.user_id}},
-                                                           ).content
+                                                           )
+        st.session_state.response = st.session_state.response.content
         # st.session_state.response = conversation.predict(input=st.session_state.user_input)
         # count token
         # if not "total_output_tokens" in st.session_state:
